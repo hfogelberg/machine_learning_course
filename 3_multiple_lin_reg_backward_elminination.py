@@ -36,16 +36,30 @@ regressor = LinearRegression()
 regressor.fit(x_train, y_train)
 
 # Prediction of Test set Results
-y_pred = regressor.predict(x_test)
+# Based on whole result. Don't bother running
+# y_pred = regressor.predict(x_test)
 
-# print("Y-test")
-# print(y_test)
-# print("Y-pred")
-# print(y_pred)
-
+###################
 # Building optimal model with backward elimination
+###################
 import statsmodels.formula.api as sm
 
-x = np.append(arr = np.ones((50, 1)).astype(int), values = x, axis = 1)     # Must insert constant at start of dataset to fit linear formula
+# Must insert constant at start of dataset to fit linear formula
+x = np.append(arr = np.ones((50, 1)).astype(int), values = x, axis = 1)     
+# Optiomal matrix, containing only features that have high impact on the result
+# Create new regressor and fit to dataset
+# Based on whole dataset
+# x_opt = x[:, [0, 1, 2, 3, 4, 5]]
+# regressor_ols = sm.OLS(endog = y, exog=x_opt).fit()
 
-print(x)
+
+# Index 2 removed from model. P-value 0.990
+# x_opt = x[:, [0, 1, 3, 4, 5]]
+# regressor_ols = sm.OLS(endog = y, exog=x_opt).fit()
+# print(regressor_ols.summary())
+
+# Index 1, 2, 4 removed from model. P-value 0.990
+# Only R&D and marketing afects the result
+x_opt = x[:, [0, 3, 5]]
+regressor_ols = sm.OLS(endog = y, exog=x_opt).fit()
+print(regressor_ols.summary())
