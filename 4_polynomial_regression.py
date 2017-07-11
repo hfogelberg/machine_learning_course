@@ -22,7 +22,7 @@ res  = linreg.fit(x, y)
 
 # Polynomial regresion model
 from sklearn.preprocessing import PolynomialFeatures
-poly_reg = PolynomialFeatures(degree = 2)
+poly_reg = PolynomialFeatures(degree = 4)   # Default is 2. Fits observations better with 3.
 x_poly = poly_reg.fit_transform(x)
 poly_reg.fit(x_poly, y)
 linreg2 = LinearRegression()
@@ -48,5 +48,13 @@ plt.title('Truth or bluf (Polynomial Regressions')
 plt.xlabel('Position level')
 plt.ylabel('Salary')
 plt.show()
+
+# # Prediction based on linear regression
+# lin_salary = linreg.predict(6.5)
+# print("Predicted salary, linear regression: " + lin_salary)
+
+# # Prediction base on polynomial regression
+# pol_salary = linreg2.predict(6.5)
+# print("Predicted salary, polynomial regression: " + pol_salary)
 
 
